@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>Angular</title>
+		<style>
+			#container{
+				width: 1200px;
+				height: 500px;
+				border:1px solid red;
+				margin: 10px auto;
+			}
+			#container>div.classTitle{
+				text-align: center;
+			}
+			#container table.table{
+				width: 1100px;
+				margin-top: 10px;
+				border-collapse: collapse;
+			}
+			#container table.table td{
+				text-align: center;
+			}
+			#container table.table td.img{
+				height: 40px;
+			}
+			#container table.table td.img>img{
+				width: 40px;
+			}
+			
+			/**/
+			table,tr,th,td{
+				border: 1px solid #f90;
+			}
+		</style>
+	</head>
+	<body>
+		<script src="angular/angular.min.js"></script>
+		<script src="angular/angular-ui-router.min.js"></script>
+		<div ng-controller="myCtrl" id="container">
+			<div ng-class="classTitle">
+				<h2>Kky后台管理系统</h2>
+			</div>
+			<div>
+				图片地址:<input type="text" ng-model="img" />
+				简介:<input type="text" ng-model="info" />
+				价格:<input type="number" ng-model="price" />
+				类别:<select ng-init="type=types[0]" ng-model="type" ng-options="item for item in types"></select>
+				<button type="button" ng-click="addPost()">添加(post)</button>
+				<button type="button" ng-click="addGet()">添加(get)</button>
+				<button type="button" ng-click="updPost()">确认修改(post)</button>
+				<button type="button" ng-click="updGet()">添加(get)</button>
+				<span style="color:red;" ng-bind="spanInfo"></span>
+			</div>
+			<div>
+				<table class="table">
+					<tr>
+						<th>图片</th>
+						<th>简介</th>
+						<th>价格</th>
+						<th>类别</th>
+						<th>操作</th>
+					</tr>
+					<tr ng-if="datas.length>0" ng-repeat="item in datas">
+						<td class="img"><img ng-src="img/img/{{item.img}}"</td><!--使用ng-src不会报错!,否则先报找不到图片-->
+						<td ng-bind="item.info"></td>
+						<td ng-bind="item.price"></td>
+						<td ng-bind="item.type"></td>
+						<!--<td ng-bind="{{item.price}}"></td>
+						<td ng-bind="{{item.type}}"></td>-->
+						<td>
+							<button type="button" ng-click="upd(item.id)">修改</button>
+							<button type="button" ng-click="del(item.id)">删除</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<script>
+			var myApp=angular.module("myApp",[]);
+			myApp.controller("myCtrl",["$scope","$http",function($scope,$http){
+				
+				$scope.classTitle="classTitle";//通过ng-class绑定样式
+				$scope.types=["冰箱","电脑","手机"];//类别
+				$scope.datas=[{id:"01",img:"bx1.jpg",info:"这是一台好冰箱啊!",price:"1000",type:"0"}];//默认/测试数据
+				$scope.spanInfo="";
+				$scope.url="http://127.0.0.1:81";
+				
+				//获取数据
+				$http.get($scope.url+"/getData").then(function(res){
+					$scope.datas=res.data;
+				},function(res){
+					console.log("");
+				})
+				//addPost
+				$scope.addPost=function(){
+					console.log("addPost:",$scope.img,$scope.info,$scope.price,$scope.type);
+					if($scope.img&&$scope.info&&$scope.price&&$scope.type){
+						$http({
+							url:$scope.url+"/addPost",
+							method:"POST",
+							//header:{'Content-Type': 'application/x-www-form-urlencoded'},
+							data:{
+								img:$scope.img,
+								info:$scope.info,
+								price:$scope.price,
+								type:$scope.type
+							}
+						}).then(function(res){
+							$scope.datas=res.data;
+							console.log("$scope.datas:",$scope.datas);
+						},function(res){
+							$scope.spanInfo="添加数据失败!";
+						})
+					}else{
+						$scope.spanInfo="数据有误!";
+					}
+				}
+				//addGet
+				$scope.addGet=function(){
+					
+				}
+				//updPost
+				$scope.updPost=function(){
+					
+				}
+				//updGet
+				$scope.updGet=function(){
+					
+				}
+				
+				//ajax
+				$scope.myAjax=function(method,type,data){
+					
+				}
+				
+				$scope.upd=function(id){
+					console.log("id:",id);
+				}
+				$scope.del=function(id){
+					console.log("id:",id);
+				}
+			}]);
+		</script>
+	</body>
+</html>
