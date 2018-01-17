@@ -36,11 +36,16 @@
 				height: 65px;
 				position: relative;
 				/*transition: all 3s;*/
-				animation: myBackImg 3s;
+				
+			}
+			.myBackImgAni{
+				animation: myBackImg .3s ;
 			}
 			@keyframes myBackImg{
 				0%{background-size: 30%;}
-				50%{background-size: 0%;}
+				25%{background-size: 25%;}
+				50%{background-size: 30%;}
+				75%{background-size: 25%;}
 				100%{background-size: 30%;}
 			}
 			footer>a>div>span{
@@ -55,7 +60,7 @@
 		<div ui-view></div>
 		<footer ng-controller="myCtrl">
 			<a ng-repeat="item in arrIn" ui-sref="{{item.href}}" ng-click="changImg($index)">
-				<div style="background-image: url(./img/{{imgNum==$index?item.imgUrl1:item.imgUrl0}});">
+				<div style="background-image: url(./img/{{imgNum==$index?item.imgUrl1:item.imgUrl0}});" ng-class="imgNum==$index?'myBackImgAni':''">
 					<span ng-bind="item.title"></span>
 				</div>
 			</a>
