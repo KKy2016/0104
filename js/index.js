@@ -15,7 +15,7 @@ myApp.controller("myCtrl",["$scope",function($scope){
 }]);
 
 myApp.config(["$stateProvider","$urlRouterProvider",function($stateProvider,$urlRouterProvider){
-	$urlRouterProvider.when("!",{templateUrl:"home"}).otherwise("/404","home");
+	$urlRouterProvider.when("","/home").otherwise("/home");
 	$stateProvider
 	.state("home",{
 		url:"/home",
@@ -36,8 +36,5 @@ myApp.config(["$stateProvider","$urlRouterProvider",function($stateProvider,$url
 		url:"/user",
 		templateUrl:"page/user/user.html",
 		controller:"UserCtrl"
-	})
-	.state("other",{
-		url:"/404"
 	})
 }])
