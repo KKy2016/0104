@@ -1,3 +1,3 @@
-myApp.controller("HomeCtrl",["$scope","$http",function($scope,$http){
-	$scope.str="这是首页";
+myApp.controller("SupCtrl",["$scope","$http",function($scope,$http){
+	$scope.str="这是闪送超市";
 }])

@@ -10,6 +10,8 @@
 			body{
 				padding: 0px;
 				margin: 0px;
+				height: 100%;
+				width: 100%;
 			}
 			footer{
 				position: fixed;
@@ -62,6 +64,7 @@
 			<a ng-repeat="item in arrIn" ui-sref="{{item.href}}" ng-click="changImg($index)">
 				<div style="background-image: url(./img/{{imgNum==$index?item.imgUrl1:item.imgUrl0}});" ng-class="imgNum==$index?'myBackImgAni':''">
 					<span ng-bind="item.title"></span>
+					<span>
 				</div>
 			</a>
 <!--			<a href="http://www.baidu.com">
